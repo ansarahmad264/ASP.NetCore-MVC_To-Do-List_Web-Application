@@ -1,0 +1,44 @@
+﻿@model User
+
+<form asp-action="Index" method="post" role="form">
+    <h3 class="my-5">
+        Register Now!
+    </h3>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="col-6">
+        <div class="row g-2">
+            <div class="col-12">
+                <label asp-for="Name" class="form-label"> Enter Your Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="col-12">
+                <label asp-for="Email" class="form-label">Enter Your Email Address</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="col-12">
+                <label asp-for="Password" class="form-label"> Choose Password</label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mt-2">
+            <div class="col-md-offset-2 col-md-5">
+                <input type="submit" class="btn btn-secondary" value="Register" />
+            </div>
+        </div>
+
+        <div class="mt-2">
+            <div class="col-md-offset-2 col-md-5">
+                <a asp-controller="Login"
+                   asp-action="Index"> Already have an account? Login </a>
+            </div>
+        </div>
+    </div>
+</form>
