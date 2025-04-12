@@ -1,8 +1,34 @@
-﻿@model List
-
-@if(ViewBag.UserName != null)
+﻿ @model IEnumerable<To_Do_List.Models.List>
+@if (ViewBag.UserName != null)
 {
-    <h3 class="my-5">
-        Welcome @ViewBag.UserName!
-    </h3>
+    <div class="d-flex justify-content-between align-items-center my-5">
+        <h3 class="mb-0">
+            Welcome @ViewBag.UserName!
+        </h3>
+        
+        <a asp-controller="Home" asp-action="NewListDetails" class="btn btn-primary btn-lg shadow-sm">
+            + Add New Task
+        </a>
+    </div>
+
+    <hr />
+
+    @if (!Model.Any())
+    {
+        <p>No tasks yet. Click above to add one!</p>
+    }
+    else
+    {
+        <ul class="list-group">
+            @foreach (var list in Model)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <strong>@list.Title</strong>
+                    <span class="badge bg-secondary">
+                        Created on: @list.Creation_Date.ToString("dd MMM yyyy")
+                    </span>
+                </li>
+            }
+        </ul>
+    }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using To_Do_List.Models;
 
@@ -11,9 +12,11 @@ using To_Do_List.Models;
 namespace To_Do_List.Migrations
 {
     [DbContext(typeof(ToDoListDbConext))]
-    partial class ToDoListDbConextModelSnapshot : ModelSnapshot
+    [Migration("20250412054029_UpdateListAndTaskRelations")]
+    partial class UpdateListAndTaskRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

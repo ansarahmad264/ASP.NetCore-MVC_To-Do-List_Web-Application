@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using To_Do_List.Models;
 using To_Do_List.ViewModels;
 
@@ -23,22 +24,25 @@ namespace To_Do_List.Controllers
 				return View(login);
 			}
 
-            var user = new User
-            {
-                Email = login.Email,
-                Password = login.Password
-            };
+            /* var tempUser = new User
+             {
+                 Email = login.Email,
+                 Password = login.Password
+             };
 
-            var userName = _userRepository.ValidateUser(user);
+             var user = _userRepository.ValidateUser(tempUser);*/
 
-			if (string.IsNullOrEmpty(userName))
+            var user = _userRepository.ValidateUser(login.Email, login.Password);
+
+            if (user == null)
 			{
 				ModelState.AddModelError("", "Invalid Email or Password!");
 				return View(login);
 			}
 
-			HttpContext.Session.SetString("userName", userName);
-			return RedirectToAction("Index", "Home");
+            HttpContext.Session.SetString("userName", user.Name);
+            HttpContext.Session.SetInt32("userId", user.Id);
+            return RedirectToAction("Index", "Home");
 
 		}
 	}

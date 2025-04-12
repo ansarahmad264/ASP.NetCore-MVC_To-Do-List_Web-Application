@@ -1,4 +1,6 @@
-﻿namespace To_Do_List.Models
+﻿using System;
+
+namespace To_Do_List.Models
 {
 	public class UserRepository : IUserRepository
 	{
@@ -31,15 +33,17 @@
 
 			return true;
 		}
-		public string? ValidateUser(User user)
+		public User? ValidateUser(string Email, string Password)
 		{
-			if (user == null)
+			
+			if(Email == string.Empty || Password == string.Empty)
+			{
 				return null;
-
+			}
 			var userExist = _toDoListDbConext.Users.
-				FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
-
-			return userExist?.Name;				
+				FirstOrDefault(u => u.Email == Email && u.Password == Password);
+            
+			return userExist;				
         }
 	}
 }
