@@ -26,13 +26,18 @@ namespace To_Do_List.Models
             return true;            
         }
 
-        public IEnumerable<List> GetAllList(int id)
+        public IEnumerable<List> GetAllList(int userId)
         {
            
-           return _toDoListDbContext.Lists.Where(l => l.UserId == id)
+           return _toDoListDbContext.Lists.Where(l => l.UserId == userId)
                 .OrderByDescending(l => l.Creation_Date).ToList();
         }
 
+        public List? GetListById(int listId)
+        {
+            return _toDoListDbContext.Lists.Include(l => l.Tasks)
+                .FirstOrDefault(l => l.Id == listId);
+        }
         
     }
         

@@ -42,5 +42,16 @@ namespace To_Do_List.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public IActionResult ListDetails(int Id)
+        {
+            var list = _listRepository.GetListById(Id);
+
+            if(list == null)
+            {
+                NotFound();
+            }
+            return View(list);
+        }
     }
 }

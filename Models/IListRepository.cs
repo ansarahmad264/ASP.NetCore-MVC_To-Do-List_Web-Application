@@ -4,6 +4,7 @@
     {
         public bool CreateList(List list);
         public IEnumerable<List> GetAllList(int id);
+        public List? GetListById(int listId);
 
     }
 }
