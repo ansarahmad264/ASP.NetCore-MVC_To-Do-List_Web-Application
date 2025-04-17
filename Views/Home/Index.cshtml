@@ -6,7 +6,7 @@
             Welcome @ViewBag.UserName!
         </h3>
         
-        <a asp-controller="Home" asp-action="NewListDetails" class="btn btn-primary btn-lg shadow-sm">
+        <a asp-controller="List" asp-action="NewListDetails" class="btn btn-primary btn-lg shadow-sm">
             + Add New Task
         </a>
     </div>
@@ -28,7 +28,7 @@
                         Created on: @list.Creation_Date.ToString("dd MMM yyyy")
                     </span>
                 </li>
-            }
+            }                         
         </ul>
     }
 }

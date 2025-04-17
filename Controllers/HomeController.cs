@@ -24,36 +24,5 @@ namespace To_Do_List.Controllers
 			var lists = _listRepository.GetAllList(userId.Value);
 			return View(lists);
 		}
-
-		public IActionResult NewListDetails()
-		{
-			return View();
-		}
-		[HttpPost]
-		public IActionResult NewListDetails(ListViewModel listViewModel)
-		{
-			var userId = HttpContext.Session.GetInt32("userId");
-            
-            if (userId == null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
-
-            var list = new List
-			{
-				Title = listViewModel.Title,
-				UserId = userId.Value
-			};
-
-			bool result =  _listRepository.CreateList(list);
-
-			if (!result)
-			{
-				ModelState.AddModelError("", "This User Doesnot Exist!");
-				return View(listViewModel);
-			}
-
-			return RedirectToAction("Index", "Home");
-		}
 	}
 }
