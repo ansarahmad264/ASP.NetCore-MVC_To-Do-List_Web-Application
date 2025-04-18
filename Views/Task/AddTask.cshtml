@@ -1,0 +1,27 @@
+﻿@using To_Do_List.ViewModels
+@model TaskViewModel
+
+<form asp-action="AddTask" method="post" role="form">
+
+    <h3 class="my-5">
+        Add Task
+    </h3>
+
+    <input type="hidden" asp-for="ListId" />
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DueDate" class="form-label"></label>
+        <input asp-for="DueDate" type="date" class="form-control" />
+        <span asp-validation-for="DueDate" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Task</button>
+</form>

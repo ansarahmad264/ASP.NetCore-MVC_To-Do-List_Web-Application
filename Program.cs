@@ -25,6 +25,7 @@ builder.Services.AddDbContext<ToDoListDbConext>(options =>
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IListRepository, ListRepository>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
