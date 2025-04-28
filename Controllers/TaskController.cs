@@ -14,11 +14,9 @@ namespace To_Do_List.Controllers
 
         public IActionResult AddTask(int listid)
         {
-            Console.WriteLine("list it at task controller" +  listid);
             var task = new TaskViewModel
             {
-                ListId = listid,
-                IsCompleted = false
+                ListId = listid
             };
             return View(task);
         }
@@ -44,5 +42,19 @@ namespace To_Do_List.Controllers
             return RedirectToAction("ListDetails", "List", new { id = task.ListId });
 
         }
+
+        [HttpPost]
+        public IActionResult ToggleComplete(int taskId, bool isCompleted)
+        {
+            var task = _taskRepository.GetTaskById(taskId);
+            if (task == null) return NotFound();
+
+            task.IsCompleted = isCompleted;
+            _taskRepository.UpdateTask(task);
+
+            // Redirect back to the current list view (you may want to pass listId)
+            return RedirectToAction("ListDetails","List", new { id = task.ListId });
+        }
+
     }
 }

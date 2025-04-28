@@ -4,6 +4,14 @@
     ViewData["Title"] = "List Details";
 }
 
+<style>
+    .completed-task {
+        opacity: 0.5;
+        text-decoration: line-through;
+        transition: opacity 0.3s ease, text-decoration 0.3s ease;
+    }
+</style>
+
 <div class="container mt-5">
     <div class="card border-dark mb-4">
         <div class="card-body text-center">
@@ -26,22 +34,34 @@
                     int index = 1;
                     foreach (var task in Model.Tasks)
                     {
-                        <tr class="align-middle text-center">
-                            <td class="text-start"><strong>@(index++).</strong> @task.Description</td>
-                            <td>@task.DueDate.ToString("yyyy-MM-dd")</td>
-                            <td>
-                                <input class="form-check-input" type="checkbox" disabled @(task.IsCompleted == true ? "checked" : "") />
-                            </td>
-                        </tr>
+                        var fadeClass = task.IsCompleted ? "completed-task" : "";
+
+                                <tr class="align-middle text-center">
+                                    <td class="text-start">
+                                        <span class="@fadeClass">
+                                            <strong>@(index++).</strong> @task.Description
+                                        </span>
+                                    </td>
+                                    <td>@task.DueDate.ToString("yyyy-MM-dd")</td>
+                                    <td class="align-middle">
+                                        <form asp-action="ToggleComplete" asp-controller="Task" method="post">
+                                            <input type="hidden" name="taskId" value="@task.Id" />
+                                            <input type="hidden" name="isCompleted" value="@(task.IsCompleted ? "false" : "true")" />
+                                            <button type="submit" class="btn btn-link p-0 m-0 border-0" title="Mark as completed">
+                                                <input type="checkbox" class="form-check-input" @(task.IsCompleted ? "checked" : "") onclick="this.form.submit()" />
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                     }
                 }
                 else
                 {
-                    <tr>
-                        <td colspan="3" class="text-center text-muted fst-italic py-3">
-                            No Tasks yet
-                        </td>
-                    </tr>
+                        <tr>
+                            <td colspan="3" class="text-center text-muted fst-italic py-3">
+                                No Tasks yet
+                            </td>
+                        </tr>
                 }
             </tbody>
         </table>
